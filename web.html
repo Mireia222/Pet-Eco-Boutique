@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Eco Boutique</title>
+    <style>
+        :root {
+            --primary-green: #76D14E;
+            --dark-green: #59a33a;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --border-radius: 30px;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            padding: 10px 5%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-green);
+            text-decoration: none;
+            line-height: 1;
+        }
+
+        .logo span { color: var(--dark-green); font-size: 14px; display: block; }
+
+        .search-container {
+            flex-grow: 1;
+            margin: 0 40px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #000;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .user-menu {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            padding: 20px 0;
+            margin: 0;
+            font-weight: bold;
+            color: var(--primary-green);
+        }
+
+        .nav-links li { cursor: pointer; position: relative; }
+
+        /* Dropdown [1] */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #fff;
+            border: 1px solid var(--primary-green);
+            border-radius: 10px;
+            padding: 10px;
+            z-index: 10;
+            top: 100%;
+            min-width: 120px;
+        }
+
+        .nav-links li:hover .dropdown-content { display: block; }
+
+        /* Banner with Dog Image [2, 3] */
+        .banner-green {
+            background-color: var(--primary-green);
+            color: #fff;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .banner-text { flex: 2; text-align: center; }
+        .banner-text h1 { font-size: 24px; margin: 0; font-style: italic; }
+
+        .banner-dog-img {
+            flex: 1;
+            max-width: 200px;
+            border-radius: 15px;
+            object-fit: cover;
+        }
+
+        .banner-white {
+            border: 1px solid #ddd;
+            margin: 10px 5%;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            color: var(--primary-green);
+        }
+
+        /* Products [2] */
+        .top-ventas-title {
+            text-align: center;
+            color: var(--primary-green);
+            font-size: 24px;
+            margin: 30px 0;
+        }
+
+        .product-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 5%;
+            flex-wrap: wrap;
+        }
+
+        .product-card {
+            border: 2px solid var(--primary-green);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            width: 320px;
+            text-align: center;
+            position: relative;
+            background: white;
+        }
+
+        .img-container {
+            width: 100%;
+            height: 180px;
+            overflow: hidden; /* For zoom effect */
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Matches source layout */
+            transition: transform 0.3s ease;
+        }
+
+        /* Zoom effect on hover */
+        .product-card:hover .img-container img {
+            transform: scale(1.15);
+        }
+
+        .heart-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            border: 1px solid #999;
+            border-radius: 50%;
+            padding: 5px;
+            background: white;
+            z-index: 2;
+        }
+
+        .stars { color: #FFD700; margin: 10px 0; }
+
+        /* Footer Section */
+        footer {
+            background-color: #f4f4f4;
+            padding: 40px 5%;
+            margin-top: 50px;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-section h4 { color: var(--dark-green); margin-bottom: 15px; }
+        .footer-section p, .footer-section li { font-size: 14px; list-style: none; padding: 0; margin: 5px 0; cursor: pointer;}
+
+        .newsletter-footer {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .newsletter-btn {
+            background: var(--primary-green);
+            color: white;
+            padding: 12px 35px;
+            border-radius: 20px;
+            border: none;
+            font-style: italic;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Responsive Mobile [4, 5] */
+        @media (max-width: 768px) {
+            .nav-links, .user-menu { display: none; }
+            .header-top { justify-content: space-between; }
+            .banner-green { flex-direction: column; text-align: center; }
+            .banner-dog-img { margin-top: 15px; }
+            .product-grid { flex-direction: column; align-items: center; }
+            .product-card { width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-top">
+            <div style="font-size: 24px; cursor: pointer;">☰</div> <!-- Mobile Menu Trigger [5] -->
+            <a href="#" class="logo">
+                Pet🐾Eco <br>
+                <span>Boutique</span>
+            </a>
+            
+            <div class="search-container">
+                <input type="text" placeholder="Busca por palabra o marca">
+            </div>
+
+            <div class="user-menu">
+                <div>🇪🇸<br>Idioma</div>
+                <div>📞<br>Contacto</div>
+                <div>👤<br>Mi cuenta</div>
+                <div>❤️<br>Favoritos</div>
+                <div>🛒<br>Carrito</div>
+            </div>
+        </div>
+
+        <ul class="nav-links">
+            <li>Perros</li>
+            <li>Gatos</li>
+            <li>Ofertas</li>
+            <li>Top Ventas</li>
+            <li>Productos ▾
+                <div class="dropdown-content">
+                    <li>Arneses</li>
+                    <li>Collares</li>
+                    <li>Correas</li>
+                    <li>Juguetes</li>
+                </div>
+            </li>
+            <li style="border: 2px solid var(--primary-green); padding: 5px 15px; border-radius: 10px;">Blog protectoras</li>
+            <li>Nosotros</li>
+        </ul>
+    </header>
+
+    <!-- Main Banner [2] with Dog Image [3] -->
+    <div class="banner-green">
+        <div style="font-size: 50px;">♻️</div>
+        <div class="banner-text">
+            <h1>Colabora con las protectoras con un <i>click</i><br>Productos sostenibles y de proximidad</h1>
+        </div>
+        <img src="hola.jpeg" class="banner-dog-img"> <!-- Source [3] -->
+    </div>
+
+    <!-- Discount Banner [2] with Bowl Image [6] -->
+    <div class="banner-white">
+        <div style="text-align: center;">
+            <h2 style="margin:0;">Oferta 15% descuento en comederos</h2>
+            <p style="margin:5px 0 0 0;"><i>*Válida hasta el 5 de abril</i></p>
+        </div>
+        <img src="comedero.jpg" alt="Comedero" style="width: 80px;"> <!-- Source [6] -->
+    </div>
+
+    <h2 class="top-ventas-title">Top Ventas</h2>
+
+    <div class="product-grid">
+        <!-- Product 1: Collar + Related Image [2, 3] -->
+        <div class="product-card">
+            <span class="heart-icon">♡</span>
+            <div class="img-container">
+                <!-- Using two images side by side as per mock-up [2] -->
+                <img src="arnes.jpg" alt="Related Dog" style="width: 50%; object-fit: cover;"> <!-- Related image [3] -->
+            </div>
+            <p>Arnes perro</p>
+            <p><b>24,99 €</b></p>
+            <div class="stars">★★★★☆ (18)</div>
+        </div>
+
+        <!-- Product 2: Comedero [2, 6] -->
+        <div class="product-card">
+            <span class="heart-icon">♡</span>
+            <div class="img-container">
+                <img src="comedero.jpg" alt="Comedero madera natural"> <!-- Source [6] -->
+            </div>
+            <p>Comedero madera natural</p>
+            <p><b>29,95 €</b></p>
+            <div class="stars">★★★★☆ (18)</div>
+        </div>
+
+        <!-- Product 3: Juguete [2, 7] -->
+        <div class="product-card">
+            <span class="heart-icon">♡</span>
+            <div class="img-container">
+                <img src="juguete.webp" alt="Juguete perro eco"> <!-- Source [7] -->
+            </div>
+            <p>Juguete perro eco</p>
+            <p><b>4,99 €</b></p>
+            <div class="stars">★★★★☆ (18)</div>
+        </div>
+    </div>
+
+    <div class="newsletter-footer">
+        <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 15px;">
+            <div style="width:10px; height:10px; border-radius:50%; background:var(--primary-green);"></div>
+            <div style="width:10px; height:10px; border-radius:50%; background:#ccc;"></div>
+            <div style="width:10px; height:10px; border-radius:50%; background:#ccc;"></div>
+        </div>
+        <button class="newsletter-btn">Suscríbete a nuestra <i>newsletter</i></button>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>SOBRE NOSOTROS</h4>
+                <li>Nuestra Historia</li>
+                <li>Compromiso Eco</li>
+                <li>Protectoras colaboradoras</li>
+                <li>Blog</li>
+            </div>
+            <div class="footer-section">
+                <h4>COMPRAR</h4>
+                <li>Perros</li>
+                <li>Gatos</li>
+                <li>Novedades</li>
+                <li>Ofertas</li>
+            </div>
+            <div class="footer-section">
+                <h4>AYUDA</h4>
+                <li>Envíos y Devoluciones</li>
+                <li>Preguntas Frecuentes</li>
+                <li>Guía de tallas</li>
+                <li>Contacto</li>
+            </div>
+            <div class="footer-section">
+                <h4>SÍGUENOS</h4>
+                <p>Instagram | Facebook | Twitter</p>
+                <p>© 2024 Pet Eco Boutique. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
